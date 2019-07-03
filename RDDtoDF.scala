@@ -1,4 +1,11 @@
 
+    val spark = SparkSession.builder().getOrCreate()
+    if (!rdd.isEmpty()) {
+      val rowRDD = rdd.map(rec => Row.fromTuple(rec))
+      val schema = buildSchema(map)
+      val df = spark.createDataFrame(rowRDD, schema)     
+    }
+
   def getDataType(dataTypeStr: String): DataType = {
     dataTypeStr match {
       case "Int" => {
